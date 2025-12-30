@@ -184,7 +184,7 @@ const FarmersRising = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         className="max-w-3xl"
                     >
-                        <h2 className="text-5xl md:text-7xl font-bold text-cream mb-8 uppercase tracking-tighter">
+                        <h2 className="text-5xl md:text-6xl font-bold text-cream mb-8 uppercase tracking-tighter">
                             Sustainable <span className="text-gold">Farming</span> Systems
                         </h2>
                         <p className="text-2xl text-cream/80 font-light leading-relaxed">
@@ -203,7 +203,7 @@ const FarmersRising = () => {
                         whileInView={{ opacity: 1, scale: 1 }}
                         className="max-w-4xl mx-auto space-y-10"
                     >
-                        <h2 className="text-5xl md:text-7xl font-bold text-primary tracking-tighter uppercase italic">
+                        <h2 className="text-5xl md:text-6xl font-bold text-primary tracking-tighter uppercase italic">
                             Sustainable Farms. <span className="text-gold">Stronger</span> Futures.
                         </h2>
                         <div className="flex flex-wrap justify-center gap-6">

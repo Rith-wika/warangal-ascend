@@ -62,8 +62,8 @@ const YouthRising = () => {
                             <Zap className="h-6 w-6" />
                             <span className="tracking-[0.3em] font-bold uppercase text-sm">Tomorrow's Leaders</span>
                         </motion.div>
-                        <motion.h1 variants={fadeInUp} className="font-display text-6xl md:text-8xl text-cream font-bold mb-8 leading-tight">
-                            Youth <br /><span className="text-gold">Rising</span>
+                        <motion.h1 variants={fadeInUp} className="font-display text-6xl md:text-7xl text-cream font-bold mb-8 leading-tight">
+                            Youth Rising
                         </motion.h1>
                         <motion.p variants={fadeInUp} className="text-cream/90 text-xl md:text-2xl mb-12 max-w-2xl font-light leading-relaxed">
                             Unlocking the potential of young people as drivers of global change, ambition, and creative purpose.
@@ -106,7 +106,7 @@ const YouthRising = () => {
                             <div className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary font-bold text-sm tracking-widest uppercase">
                                 Powering the Future
                             </div>
-                            <h2 className="text-4xl md:text-6xl font-bold text-slate-900 leading-tight">
+                            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
                                 Ambition & <span className="text-primary">Creativity</span>
                             </h2>
                             <p className="text-xl text-slate-600 leading-relaxed">
@@ -125,9 +125,7 @@ const YouthRising = () => {
                                     </div>
                                 ))}
                             </div>
-                            <Button size="xl" variant="hero" className="mt-6">
-                                Join Skill Portals <ArrowRight className="ml-2 h-5 w-5" />
-                            </Button>
+
                         </motion.div>
                     </div>
                 </div>
@@ -188,7 +186,7 @@ const YouthRising = () => {
                         className="max-w-4xl"
                     >
                         <h2 className="text-4xl md:text-6xl font-bold text-cream mb-8 uppercase tracking-tighter italic leading-tight">
-                            Skills. Innovation. Opportunity. <br /><span className="text-gold">Empowering</span> the Next Generation.
+                            Human Development & <br /><span className="text-gold">Opportunity</span>
                         </h2>
                     </motion.div>
                 </div>
