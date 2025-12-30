@@ -19,7 +19,6 @@ const footerLinks = {
     { label: '$1 Trillion Vision', href: '/economy/vision' },
     { label: 'Investments', href: '/economy/investments' },
     { label: 'Housing Initiative', href: '/welfare/housing' },
-    { label: 'Skill Programs', href: '/welfare/skills' },
   ],
 };
 
@@ -43,7 +42,7 @@ export function Footer() {
               </div>
             </Link>
             <p className="text-cream/70 text-sm leading-relaxed mb-6 max-w-md">
-              Warangal Rising is a vision to transform the historic city into a thriving hub of 
+              Warangal Rising is a vision to transform the historic city into a thriving hub of
               innovation, industry, and inclusive growth. Together, we build a brighter future.
             </p>
             {/* Contact Info */}

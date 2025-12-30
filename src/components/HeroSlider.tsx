@@ -64,14 +64,13 @@ export function HeroSlider() {
   }, [nextSlide]);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative h-screen w-full">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
           key={index}
-          className={`absolute inset-0 transition-all duration-800 ease-out ${
-            index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
-          }`}
+          className={`absolute inset-0  transition-all duration-800 ease-out ${index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+            }`}
         >
           {/* Background Image */}
           <div
@@ -84,40 +83,31 @@ export function HeroSlider() {
       ))}
 
       {/* Content */}
-      <div className="relative h-full container mx-auto px-4 flex flex-col justify-center">
-        <div className="max-w-3xl">
+      <div className="relative h-full container mx-auto px-4 flex flex-col justify-start pt-32 lg:justify-center lg:pt-0">
+        <div className="relative w-full max-w-3xl pb-32 lg:pb-0">
           {slides.map((slide, index) => (
             <div
               key={index}
-              className={`absolute transition-all duration-700 ${
-                index === currentSlide
-                  ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-8 pointer-events-none'
-              }`}
+              className={`absolute transition-all duration-700 ${index === currentSlide
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-8 pointer-events-none'
+                }`}
             >
-              <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-cream mb-4">
+              <h1 className="font-display text-5xl md:text-7xl lg:text-7xl text-cream mb-4">
                 {slide.title}
               </h1>
-              <h2 className="font-display text-4xl md:text-6xl lg:text-7xl mb-6">
+              <h2 className="font-display text-4xl md:text-6xl lg:text-5xl mb-6">
                 <span className="text-cream">Means </span>
                 <span className="text-gradient font-bold">{slide.highlight}</span>
               </h2>
               <p className="text-cream/80 text-lg md:text-xl mb-8">{slide.subtitle}</p>
-              <div className="flex flex-wrap gap-4">
-                <Button variant="hero" size="lg">
-                  Read More
-                </Button>
-                <Button variant="heroOutline" size="lg">
-                  <MapPin className="h-5 w-5 mr-2" />
-                  Directions
-                </Button>
-              </div>
+
             </div>
           ))}
         </div>
 
         {/* Event Banner */}
-        <div className="absolute bottom-8 right-4 md:right-8 bg-primary/90 backdrop-blur-md rounded-xl p-6 max-w-sm animate-fade-in-up delay-500">
+        {/* <div className="absolute bottom-8 right-4 md:right-8 bg-primary/90 backdrop-blur-md rounded-xl p-6 max-w-sm animate-fade-in-up delay-500">
           <div className="flex items-start gap-4">
             <Calendar className="h-8 w-8 text-gold flex-shrink-0" />
             <div>
@@ -131,33 +121,35 @@ export function HeroSlider() {
               </Button>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Navigation Arrows */}
-        <div className="absolute bottom-8 left-4 md:left-8 flex items-center gap-3">
-          <button
-            onClick={prevSlide}
-            className="w-12 h-12 rounded-full border-2 border-cream/30 flex items-center justify-center text-cream hover:border-gold hover:text-gold transition-colors"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-          <button
-            onClick={nextSlide}
-            className="w-12 h-12 rounded-full border-2 border-cream/30 flex items-center justify-center text-cream hover:border-gold hover:text-gold transition-colors"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </button>
+        <div className="absolute bottom-10 left-0 right-0 flex flex-col items-center gap-4 z-20">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={prevSlide}
+              className="w-12 h-12 rounded-full border-2 border-cream/30 flex items-center justify-center text-cream hover:border-gold hover:text-gold transition-colors"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="w-12 h-12 rounded-full border-2 border-cream/30 flex items-center justify-center text-cream hover:border-gold hover:text-gold transition-colors"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+          </div>
+
           {/* Slide Indicators */}
-          <div className="flex items-center gap-2 ml-4">
+          <div className="flex items-center gap-2 ">
             {slides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => !isAnimating && setCurrentSlide(index)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  index === currentSlide
-                    ? 'w-8 bg-gold'
-                    : 'w-2 bg-cream/30 hover:bg-cream/50'
-                }`}
+                className={`h-2 rounded-full transition-all duration-300 ${index === currentSlide
+                  ? 'w-8 bg-gold'
+                  : 'w-2 bg-cream/30 hover:bg-cream/50'
+                  }`}
               />
             ))}
           </div>

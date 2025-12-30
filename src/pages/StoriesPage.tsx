@@ -6,7 +6,7 @@ const StoriesPage = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative min-h-[50vh] flex items-center pt-20">
+      <section className="relative min-h-[60vh] flex items-center pt-20">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${heroSlide4})` }}

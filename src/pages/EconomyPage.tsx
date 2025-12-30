@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import { Layout } from '@/components/Layout';
 import { StatsSection } from '@/components/StatsSection';
 import { Button } from '@/components/ui/button';
@@ -5,6 +6,18 @@ import { ArrowRight, TrendingUp, DollarSign, LineChart, Building } from 'lucide-
 import heroSlide3 from '@/assets/hero-slide-3.jpg';
 
 const EconomyPage = () => {
+  const { category } = useParams();
+
+  const contentMap: Record<string, { title: string; desc: string }> = {
+    'vision': { title: '$1 Trillion Vision', desc: 'A bold roadmap to achieve a $1 trillion economy by 2047.' },
+    'investments': { title: 'Investments', desc: 'Attracting global capital to fuel Warangal’s rapid growth engines.' },
+  };
+
+  const currentContent = category && contentMap[category] ? contentMap[category] : {
+    title: 'Economy & Growth',
+    desc: 'Building a $1 trillion economy through strategic investments and sustainable growth'
+  };
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -17,10 +30,10 @@ const EconomyPage = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl animate-fade-in-up">
             <h1 className="font-display text-5xl md:text-6xl lg:text-7xl text-cream font-bold mb-6">
-              Economy & Growth
+              {currentContent.title}
             </h1>
             <p className="text-cream/80 text-lg md:text-xl mb-8">
-              Building a $1 trillion economy through strategic investments and sustainable growth
+              {currentContent.desc}
             </p>
             <Button variant="hero" size="lg">
               Investment Opportunities
@@ -99,7 +112,7 @@ const EconomyPage = () => {
             Invest in Warangal's Future
           </h2>
           <p className="text-foreground/70 text-lg max-w-2xl mx-auto mb-8">
-            Strategic location, skilled workforce, and progressive policies make Warangal 
+            Strategic location, skilled workforce, and progressive policies make Warangal
             the ideal destination for your next investment.
           </p>
           <Button variant="navy" size="xl">

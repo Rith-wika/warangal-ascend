@@ -3,7 +3,7 @@ import { HeroSlider } from '@/components/HeroSlider';
 import { LeadershipSection } from '@/components/LeadershipSection';
 import { VisionSection } from '@/components/VisionSection';
 import { InitiativesSection } from '@/components/InitiativesSection';
-import { StatsSection } from '@/components/StatsSection';
+// import { StatsSection } from '@/components/StatsSection';
 import { StoriesSection } from '@/components/StoriesSection';
 
 const Index = () => {
@@ -14,7 +14,7 @@ const Index = () => {
       <LeadershipSection />
       <VisionSection />
       <InitiativesSection />
-      <StatsSection />
+      {/* <StatsSection /> */}
       <StoriesSection />
     </Layout>
   );

@@ -1,9 +1,23 @@
+import { useParams } from 'react-router-dom';
 import { Layout } from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Home, GraduationCap, Scale, Heart } from 'lucide-react';
 import heroSlide2 from '@/assets/hero-slide-2.jpg';
 
 const WelfarePage = () => {
+  const { category } = useParams();
+
+  const contentMap: Record<string, { title: string; desc: string }> = {
+    'housing': { title: 'Housing Initiative', desc: 'Dignified housing for all - Building communities, not just homes.' },
+    'skills': { title: 'Skill & Jobs Programs', desc: 'Future-ready skilling for Warangal’s youth workforce.' },
+    'justice': { title: 'Social Justice Initiatives', desc: 'Equity, inclusion, and justice for every citizen.' },
+  };
+
+  const currentContent = category && contentMap[category] ? contentMap[category] : {
+    title: "People's Welfare",
+    desc: 'Comprehensive welfare programs ensuring no citizen is left behind'
+  };
+
   const programs = [
     {
       icon: <Home className="h-10 w-10" />,
@@ -47,10 +61,10 @@ const WelfarePage = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl animate-fade-in-up">
             <h1 className="font-display text-5xl md:text-6xl lg:text-7xl text-cream font-bold mb-6">
-              People's Welfare
+              {currentContent.title}
             </h1>
             <p className="text-cream/80 text-lg md:text-xl mb-8">
-              Comprehensive welfare programs ensuring no citizen is left behind
+              {currentContent.desc}
             </p>
             <Button variant="hero" size="lg">
               View All Programs

@@ -3,13 +3,22 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ScrollToTop from "./components/ScrollTop";
 import Index from "./pages/Index";
 import VisionPage from "./pages/VisionPage";
-import RisingPage from "./pages/RisingPage";
 import EconomyPage from "./pages/EconomyPage";
 import WelfarePage from "./pages/WelfarePage";
 import StoriesPage from "./pages/StoriesPage";
 import NotFound from "./pages/NotFound";
+import WarangalRising from "./pages/rising/WarangalRising";
+import UrbanRising from "./pages/rising/UrbanRising";
+import WomenRising from "./pages/rising/WomenRising";
+import FarmersRising from "./pages/rising/FarmersRising";
+import YouthRising from "./pages/rising/YouthRising";
+import TrillionVision from "./pages/economy/TrillionVision";
+import Investments from "./pages/economy/Investments";
+import HousingInitiative from "./pages/welfare/Housing";
+import SocialJustice from "./pages/welfare/Justice";
 
 const queryClient = new QueryClient();
 
@@ -19,15 +28,28 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/vision" element={<VisionPage />} />
-          <Route path="/rising" element={<RisingPage />} />
-          <Route path="/rising/:category" element={<RisingPage />} />
+
+          {/* Separate Rising Pages */}
+          <Route path="/rising/warangal" element={<WarangalRising />} />
+          <Route path="/rising/urban" element={<UrbanRising />} />
+          <Route path="/rising/women" element={<WomenRising />} />
+          <Route path="/rising/farmers" element={<FarmersRising />} />
+          <Route path="/rising/youth" element={<YouthRising />} />
+
           <Route path="/economy" element={<EconomyPage />} />
-          <Route path="/economy/:category" element={<EconomyPage />} />
+          {/* Separate Economy Pages */}
+          <Route path="/economy/vision" element={<TrillionVision />} />
+          <Route path="/economy/investments" element={<Investments />} />
+
           <Route path="/welfare" element={<WelfarePage />} />
-          <Route path="/welfare/:category" element={<WelfarePage />} />
+          {/* Separate Welfare Pages */}
+          <Route path="/welfare/housing" element={<HousingInitiative />} />
+          <Route path="/welfare/justice" element={<SocialJustice />} />
+
           <Route path="/stories" element={<StoriesPage />} />
           <Route path="/stories/:id" element={<StoriesPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

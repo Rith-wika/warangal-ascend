@@ -15,30 +15,28 @@ const navItems: NavItem[] = [
   { label: 'Vision & Mission', href: '/vision' },
   {
     label: 'The Rising',
-    href: '/rising',
+    href: '#',
     children: [
       { label: 'Warangal Rising', href: '/rising/warangal' },
       { label: 'Urban Rising', href: '/rising/urban' },
       { label: 'Women Rising', href: '/rising/women' },
       { label: 'Farmers Rising', href: '/rising/farmers' },
       { label: 'Youth Rising', href: '/rising/youth' },
-      { label: 'Industry Rising', href: '/rising/industry' },
     ],
   },
   {
     label: 'Economy & Growth',
-    href: '/economy',
+    href: '#',
     children: [
       { label: '$1 Trillion Vision', href: '/economy/vision' },
       { label: 'Investments', href: '/economy/investments' },
     ],
   },
   {
-    label: "People's Welfare",
-    href: '/welfare',
+    label: "People Welfare",
+    href: '#',
     children: [
       { label: 'Housing Initiative', href: '/welfare/housing' },
-      { label: 'Skill & Jobs Programs', href: '/welfare/skills' },
       { label: 'Social Justice Initiatives', href: '/welfare/justice' },
     ],
   },
@@ -49,6 +47,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileDropdown, setMobileDropdown] = useState<string | null>(null); // New state for mobile
   const location = useLocation();
 
   useEffect(() => {
@@ -62,15 +61,19 @@ export function Header() {
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setOpenDropdown(null);
+    setMobileDropdown(null);
   }, [location.pathname]);
+
+  const toggleMobileDropdown = (label: string) => {
+    setMobileDropdown(mobileDropdown === label ? null : label);
+  };
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-primary/95 backdrop-blur-md shadow-lg py-2'
-          : 'bg-transparent py-4'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || isMobileMenuOpen
+        ? 'bg-primary shadow-lg py-2' // Removed backdrop-blur for solid mobile background
+        : 'bg-transparent py-4'
+        }`}
     >
       <div className="container mx-auto px-4">
         <nav className="flex items-center justify-between">
@@ -98,22 +101,20 @@ export function Header() {
               >
                 <Link
                   to={item.href}
-                  className={`px-4 py-2 text-sm font-medium text-cream hover:text-gold transition-colors flex items-center gap-1 ${
-                    location.pathname === item.href ? 'text-gold' : ''
-                  }`}
+                  className={`px-4 py-2 text-sm font-medium text-cream hover:text-gold transition-colors flex items-center gap-1 ${location.pathname === item.href ? 'text-gold' : ''
+                    }`}
                 >
                   {item.label}
                   {item.children && <ChevronDown className="h-4 w-4" />}
                 </Link>
 
-                {/* Dropdown */}
                 {item.children && openDropdown === item.label && (
-                  <div className="absolute top-full left-0 mt-1 w-56 bg-primary border border-cream/10 rounded-lg shadow-lg overflow-hidden animate-fade-in">
+                  <div className="absolute top-full left-0 mt-0 w-64 bg-white border border-gray-200 rounded-md shadow-xl overflow-hidden animate-in fade-in duration-75 origin-top-left z-50 py-2">
                     {item.children.map((child) => (
                       <Link
                         key={child.label}
                         to={child.href}
-                        className="block px-4 py-3 text-sm text-cream hover:bg-cream/10 hover:text-gold transition-colors"
+                        className="block px-4 py-2 text-base font-normal text-gray-800 hover:bg-gray-100 hover:text-gray-900 transition-none"
                       >
                         {child.label}
                       </Link>
@@ -122,16 +123,6 @@ export function Header() {
                 )}
               </div>
             ))}
-          </div>
-
-          {/* Language Toggle & CTA */}
-          <div className="hidden lg:flex items-center gap-4">
-            <button className="text-cream text-sm font-medium hover:text-gold transition-colors">
-              EN | తెలుగు
-            </button>
-            <Button variant="hero" size="sm">
-              Summit 2025
-            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -147,39 +138,50 @@ export function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden mt-4 pb-4 animate-fade-in">
-            <div className="flex flex-col gap-2">
+          <div className="lg:hidden mt-4 pb-6 h-screen overflow-y-auto bg-primary">
+            <div className="flex flex-col gap-1">
               {navItems.map((item) => (
-                <div key={item.label}>
-                  <Link
-                    to={item.href}
-                    className={`block px-4 py-3 text-cream hover:text-gold hover:bg-cream/5 rounded-lg transition-colors ${
-                      location.pathname === item.href ? 'text-gold bg-cream/5' : ''
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                  {item.children && (
-                    <div className="ml-4 mt-1 border-l-2 border-gold/30">
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.label}
-                          to={child.href}
-                          className="block px-4 py-2 text-sm text-cream/80 hover:text-gold transition-colors"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
+                <div key={item.label} className="border-b border-white/10 last:border-0">
+                  {item.children ? (
+                    <>
+                      <button
+                        onClick={() => toggleMobileDropdown(item.label)}
+                        className="w-full flex items-center justify-between px-4 py-4 text-cream hover:bg-white/5 transition-colors"
+                      >
+                        <span className="font-medium">{item.label}</span>
+                        <ChevronDown
+                          className={`h-5 w-5 transition-transform duration-200 ${mobileDropdown === item.label ? 'rotate-180' : ''
+                            }`}
+                        />
+                      </button>
+
+                      {/* Sub-menu items */}
+                      <div className={`overflow-hidden transition-all duration-300 ${mobileDropdown === item.label ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                        }`}>
+                        <div className="bg-black/20 py-2">
+                          {item.children.map((child) => (
+                            <Link
+                              key={child.label}
+                              to={child.href}
+                              className="block px-8 py-3 text-sm text-cream/90 hover:text-gold"
+                            >
+                              {child.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      className={`block px-4 py-4 text-cream font-medium hover:bg-white/5 ${location.pathname === item.href ? 'text-gold' : ''
+                        }`}
+                    >
+                      {item.label}
+                    </Link>
                   )}
                 </div>
               ))}
-            </div>
-            <div className="mt-4 pt-4 border-t border-cream/10 flex flex-col gap-3">
-              <button className="text-cream text-sm font-medium">EN | తెలుగు</button>
-              <Button variant="hero" className="w-full">
-                Summit 2025
-              </Button>
             </div>
           </div>
         )}

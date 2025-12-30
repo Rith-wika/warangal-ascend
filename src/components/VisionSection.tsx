@@ -1,105 +1,86 @@
-import { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import { Building2, Factory, Wheat } from 'lucide-react';
-import heroSlide1 from '@/assets/hero-slide-1.jpg';
+import infrastructureAerial from '@/assets/infrastructure_aerial_1767085665194.png';
+import manufacturingFacility from '@/assets/manufacturing_facility_1767085685808.png';
+import digitalTechOffice from '@/assets/digital_tech_office_1767085706981.png';
 
-interface VisionCard {
-  icon: React.ReactNode;
-  title: string;
-  acronym: string;
-  description: string;
-}
-
-const visionCards: VisionCard[] = [
+const visionCards = [
   {
     icon: <Building2 className="h-10 w-10" />,
     title: 'Core Urban Region Economy',
     acronym: 'CURE',
+    img: digitalTechOffice,
     description: 'The hub for high-value services, technology, innovation, and urban economic engines.',
   },
   {
     icon: <Factory className="h-10 w-10" />,
     title: 'Peri-Urban Region Economy',
     acronym: 'PURE',
+    img: manufacturingFacility,
     description: 'The zone that will drive large-scale manufacturing, industrial growth, and production infrastructure.',
   },
   {
     icon: <Wheat className="h-10 w-10" />,
     title: 'Rural and Agri Region Economy',
     acronym: 'RARE',
+    img: infrastructureAerial,
     description: 'The foundation for agriculture, food systems, and rural production-led prosperity.',
   },
 ];
 
 export function VisionSection() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section ref={sectionRef} className="py-20 bg-background relative overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroSlide1})` }}
-        />
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Header */}
-        <div
-          className={`text-center max-w-3xl mx-auto mb-16 transition-all duration-700 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <h2 className="font-display text-4xl md:text-5xl text-primary font-bold mb-4">
+    <section className="py-24 bg-[#fcfaf7] relative overflow-hidden">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="font-display text-4xl md:text-5xl text-primary font-bold mb-6"
+          >
             Vision for <span className="text-gold">Warangal</span>
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            Warangal's vision is to become a{' '}
-            <span className="text-burgundy font-bold">$1 trillion economy by 2034</span> and a{' '}
-            <span className="text-burgundy font-bold">$3 trillion SGDP by 2047</span>, when India
-            celebrates 100 years of Independence.
-          </p>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-muted-foreground text-xl leading-relaxed"
+          >
+            A multi-layered economic strategy designed to drive growth across every landscape—from urban centers to rural farmlands.
+          </motion.p>
         </div>
 
-        {/* Vision Cards */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-10">
           {visionCards.map((card, index) => (
-            <div
+            <motion.div
               key={card.acronym}
-              className={`bg-card rounded-2xl p-8 shadow-lg card-hover border border-border transition-all duration-700 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-              }`}
-              style={{ transitionDelay: `${(index + 1) * 150}ms` }}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2 }}
+              whileHover={{ y: -10 }}
+              className="group relative h-[500px] rounded-[2.5rem] overflow-hidden shadow-2xl"
             >
-              <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
-                {card.icon}
+              {/* Background Image */}
+              <img src={card.img} alt={card.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+
+              {/* Overlays */}
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/70 to-transparent" />
+
+              {/* Content */}
+              <div className="absolute inset-0 p-10 flex flex-col justify-end text-cream">
+                <div className="h-16 w-16 bg-gold rounded-2xl flex items-center justify-center text-primary mb-6 shadow-lg">
+                  {card.icon}
+                </div>
+                <span className="text-gold font-bold tracking-widest text-sm mb-2">{card.acronym}</span>
+                <h3 className="font-display text-2xl font-bold mb-4 leading-tight group-hover:text-gold transition-colors">
+                  {card.title}
+                </h3>
+                <p className="text-cream/80 leading-relaxed text-lg">
+                  {card.description}
+                </p>
               </div>
-              <span className="inline-block px-3 py-1 bg-gold/20 text-gold rounded-full text-sm font-bold mb-3">
-                {card.acronym}
-              </span>
-              <h3 className="font-display text-xl font-bold text-card-foreground mb-3">
-                {card.title}
-              </h3>
-              <p className="text-muted-foreground">{card.description}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
