@@ -79,7 +79,7 @@ export function Header() {
         <nav className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="Warangal Rising" className="h-14 w-auto" />
+            <img src={logo} alt="Warangal Rising" className="h-20 w-22" />
             <div className="hidden sm:block">
               <span className="text-cream font-display text-xl font-bold block leading-tight">
                 WARANGAL
