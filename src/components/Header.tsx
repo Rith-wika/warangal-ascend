@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { MemberSelectionModal } from './registration/MemberSelectionModal';
+import { AttendeeDetailsModal } from './registration/AttendeeDetailsModal';
+import { toast } from 'sonner';
 import logo from '@/assets/warangal-rising-logo.png';
 
 interface NavItem {
@@ -47,8 +50,15 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [mobileDropdown, setMobileDropdown] = useState<string | null>(null); // New state for mobile
+  const [mobileDropdown, setMobileDropdown] = useState<string | null>(null);
+
+  // Registration Flow State
+  const [isMemberSelectionOpen, setIsMemberSelectionOpen] = useState(false);
+  const [isAttendeeDetailsOpen, setIsAttendeeDetailsOpen] = useState(false);
+  const [memberCount, setMemberCount] = useState(1);
+
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,10 +78,33 @@ export function Header() {
     setMobileDropdown(mobileDropdown === label ? null : label);
   };
 
+  const handleRegisterClick = () => {
+    setIsMemberSelectionOpen(true);
+    setIsMobileMenuOpen(false);
+  }
+
+  const handleMemberSelectionProceed = (count: number) => {
+    setMemberCount(count);
+    setIsMemberSelectionOpen(false);
+    setTimeout(() => setIsAttendeeDetailsOpen(true), 150); // Small delay for smooth transition
+  }
+
+  const handleAttendeeDetailsSubmit = (data: any) => {
+    setIsAttendeeDetailsOpen(false);
+    toast.info("Please Wait", {
+      description: "We’re redirecting you to payment...",
+      duration: 2000,
+    });
+
+    setTimeout(() => {
+      navigate('/payment', { state: { attendees: data.attendees, count: memberCount } });
+    }, 1500);
+  }
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || isMobileMenuOpen
-        ? 'bg-primary shadow-lg py-2' // Removed backdrop-blur for solid mobile background
+        ? 'bg-primary shadow-lg py-2'
         : 'bg-transparent py-4'
         }`}
     >
@@ -123,6 +156,14 @@ export function Header() {
                 )}
               </div>
             ))}
+
+            {/* Register Button Desktop */}
+            <Button
+              onClick={handleRegisterClick}
+              className="ml-4 bg-gold hover:bg-gold/90 text-primary font-bold shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5"
+            >
+              Register Now
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -182,9 +223,34 @@ export function Header() {
                   )}
                 </div>
               ))}
+
+              {/* Register Button Mobile */}
+              <div className="p-4">
+                <Button
+                  onClick={handleRegisterClick}
+                  className="w-full bg-gold hover:bg-gold/90 text-primary font-bold shadow-lg"
+                >
+                  Register Now
+                </Button>
+              </div>
             </div>
           </div>
         )}
+
+        {/* Registration Modals */}
+        <MemberSelectionModal
+          isOpen={isMemberSelectionOpen}
+          onClose={() => setIsMemberSelectionOpen(false)}
+          onProceed={handleMemberSelectionProceed}
+        />
+
+        <AttendeeDetailsModal
+          isOpen={isAttendeeDetailsOpen}
+          onClose={() => setIsAttendeeDetailsOpen(false)}
+          count={memberCount}
+          onSubmit={handleAttendeeDetailsSubmit}
+        />
+
       </div>
     </header>
   );

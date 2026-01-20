@@ -19,6 +19,8 @@ import TrillionVision from "./pages/economy/TrillionVision";
 import Investments from "./pages/economy/Investments";
 import HousingInitiative from "./pages/welfare/Housing";
 import SocialJustice from "./pages/welfare/Justice";
+import PaymentPage from "./pages/PaymentPage";
+import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 
 const queryClient = new QueryClient();
 
@@ -52,6 +54,11 @@ const App = () => (
 
           <Route path="/stories" element={<StoriesPage />} />
           <Route path="/stories/:id" element={<StoriesPage />} />
+
+          {/* Registration Flow Pages */}
+          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/payment-success" element={<PaymentSuccessPage />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
